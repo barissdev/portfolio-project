@@ -1,14 +1,15 @@
 <?php
 
-$host = "sql303.infinityfree.com";
-$dbname = "if0_41913479_portfolio";
-$username = "if0_41913479";
-$password = "3421Gecit";
+$host = getenv("MYSQLHOST");
+$port = getenv("MYSQLPORT");
+$dbname = getenv("MYSQLDATABASE");
+$username = getenv("MYSQLUSER");
+$password = getenv("MYSQLPASSWORD");
 
 try {
 
     $pdo = new PDO(
-        "mysql:host=$host;dbname=$dbname;charset=utf8mb4",
+        "mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4",
         $username,
         $password
     );
