@@ -1,3 +1,4 @@
 config/db.php
+database/portfolio.sql
 .DS_Store
-
+.env
