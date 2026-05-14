@@ -7,66 +7,54 @@ if (!isset($_SESSION["admin_id"])) {
     exit;
 }
 
-$stmt = $pdo->prepare("SELECT * FROM projects ORDER BY created_at DESC");
-$stmt->execute();
+$success = "";
 
-$projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $title = trim($_POST["title"]);
+    $description = trim($_POST["description"]);
+    $technologies = trim($_POST["technologies"]);
+    $image_url = trim($_POST["image_url"]);
+    $project_link = trim($_POST["project_link"]);
+
+    if ($title && $description && $technologies) {
+        $stmt = $pdo->prepare("INSERT INTO projects (title, description, technologies, image_url, project_link) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([$title, $description, $technologies, $image_url, $project_link]);
+
+        $success = "Project added successfully.";
+    }
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard</title>
+    <title>Add Project</title>
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 
-<section class="projects">
+<section class="contact">
+    <h2>Add New Project</h2>
 
-    <h2>Admin Dashboard</h2>
+    <form method="POST">
+        <input type="text" name="title" placeholder="Project Title" required>
 
-    <a href="add_project.php">Add New Project</a>
-    <br><br>
+        <textarea name="description" placeholder="Project Description" required></textarea>
 
-    <div id="projects-container">
+        <input type="text" name="technologies" placeholder="Technologies" required>
 
-        <?php foreach($projects as $project): ?>
+        <input type="text" name="image_url" placeholder="Image URL">
 
-            <div class="project-card">
+        <input type="text" name="project_link" placeholder="Project Link">
 
-                <h3><?php echo $project["title"]; ?></h3>
+        <button type="submit">Add Project</button>
+    </form>
 
-                <p><?php echo $project["description"]; ?></p>
+    <p id="formMessage"><?php echo $success; ?></p>
 
-                <p>
-                    <strong>Tech:</strong>
-                    <?php echo $project["technologies"]; ?>
-                </p>
-
-                <br>
-
-                <a href="edit_project.php?id=<?php echo $project['id']; ?>">
-                    Edit
-                </a>
-
-                <br><br>
-
-                <a href="delete_project.php?id=<?php echo $project['id']; ?>"
-                   onclick="return confirm('Delete this project?')">
-                    Delete
-                </a>
-
-            </div>
-
-        <?php endforeach; ?>
-
-    </div>
-
-    <br><br>
-
-    <a href="logout.php">Logout</a>
-
+    <br>
+    <a href="dashboard.php">Back to Dashboard</a>
 </section>
 
 </body>

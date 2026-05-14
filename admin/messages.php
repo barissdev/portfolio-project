@@ -19,7 +19,7 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <title>Messages</title>
 
-    <link rel="stylesheet" href="/portfolio-project/assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 

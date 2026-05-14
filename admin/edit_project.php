@@ -66,7 +66,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 <head>
     <meta charset="UTF-8">
     <title>Edit Project</title>
-    <link rel="stylesheet" href="/portfolio-project/assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
@@ -108,7 +108,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 
         <?php if(!empty($project['image_url'])): ?>
             <img
-                src="/portfolio-project/<?php echo $project['image_url']; ?>"
+                src="<?php echo $project['image_url']; ?>"
                 style="width:240px; margin:20px 0; border-radius:16px;"
             >
         <?php endif; ?>
